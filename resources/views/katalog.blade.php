@@ -88,16 +88,23 @@
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card card-batik h-100">
                             <div style="position: relative; overflow: hidden;">
-                                @if($produk->foto_produk)
-                                <img src="{{ asset('images/produk/' . $produk->foto_produk) }}" 
-                                     class="card-img-top" 
-                                     alt="{{ $produk->nama_produk }}"
-                                     style="height: 280px; object-fit: cover;">
-                                @else
+                            @if($produk->foto_produk)
+                                @if(\Illuminate\Support\Str::startsWith($produk->foto_produk, ['http://', 'https://']))
+                                    <img src="{{ $produk->foto_produk }}" 
+                                    class="card-img-top" 
+                                    alt="{{ $produk->nama_produk }}"
+                                    style="height: 280px; object-fit: cover;">
+                                    @else
+                                    <img src="{{ asset('images/produk/' . $produk->foto_produk) }}" 
+                                    class="card-img-top" 
+                                    alt="{{ $produk->nama_produk }}"
+                                    style="height: 280px; object-fit: cover;">
+                                    @endif
+                            @else
                                 <div style="height: 280px; background: var(--batik-cream); display: flex; align-items: center; justify-content: center;">
                                     <i class="fas fa-image fa-3x" style="color: var(--batik-brown);"></i>
                                 </div>
-                                @endif
+                            @endif
                                 
                                 @if($produk->stok < 5)
                                 <span class="badge bg-danger" style="position: absolute; top: 10px; right: 10px;">

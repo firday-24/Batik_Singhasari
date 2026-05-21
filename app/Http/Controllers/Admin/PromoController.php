@@ -35,6 +35,7 @@ class PromoController extends Controller
         ]);
 
         $data = $request->all();
+        $data['is_active'] = true;   // ← Tambahkan baris ini
 
         if ($request->hasFile('gambar')) {
             $file = $request->file('gambar');
@@ -46,7 +47,7 @@ class PromoController extends Controller
         Promo::create($data);
 
         return redirect()->route('admin.promo.index')
-                        ->with('success', 'Promo berhasil ditambahkan!');
+                        ->with('success', 'Promo berhasil ditambahkan dan aktif!');
     }
 
     public function edit($id)

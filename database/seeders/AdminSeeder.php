@@ -10,10 +10,13 @@ class AdminSeeder extends Seeder
 {
     public function run(): void
     {
-        User::create([
-            'name' => 'Admin Batik',
-            'email' => 'admin@batik.com',
-            'password' => Hash::make('password')
-        ]);
+        User::updateOrCreate(
+    ['email' => 'admin@batik.com'],
+    [
+        'name' => 'Admin Batik',
+        'password' => Hash::make('password'),
+        'role' => 'admin'
+    ]
+);
     }
 }

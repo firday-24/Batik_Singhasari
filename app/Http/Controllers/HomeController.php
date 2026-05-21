@@ -8,6 +8,7 @@ use App\Models\ProfilToko;
 use App\Models\Promo;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use App\Models\Message;
 
 class HomeController extends Controller
 {
@@ -16,9 +17,28 @@ class HomeController extends Controller
         $profil = ProfilToko::first();
         $kategoris = Kategori::withCount('produks')->get();
         $produks = Produk::with('kategori', 'reviews')->latest()->take(8)->get();
+        
+        // Ini yang penting
         $promos = Promo::active()->latest()->take(3)->get();
 
         return view('home', compact('profil', 'kategoris', 'produks', 'promos'));
+    }
+
+    public function kirimPesan(Request $request)
+    {
+    $request->validate([
+        'nama' => 'required',
+        'email' => 'required|email',
+        'pesan' => 'required'
+    ]);
+
+    Message::create([
+        'nama' => $request->nama,
+        'email' => $request->email,
+        'pesan' => $request->pesan
+    ]);
+
+    return redirect()->back()->with('success', 'Pesan berhasil dikirim!');
     }
 
     public function katalog(Request $request)
@@ -79,7 +99,12 @@ class HomeController extends Controller
     public function promo()
     {
         $promos = Promo::active()->latest()->paginate(6);
-
+        
         return view('promo', compact('promos'));
     }
+
+    public function kontak()
+{
+    return view('kontak');
+}
 }

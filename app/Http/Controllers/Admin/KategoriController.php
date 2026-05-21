@@ -21,7 +21,7 @@ class KategoriController extends Controller
 
     public function create()
     {
-        return view('admin.kategori.create');
+        return view('admin.kategori.create'); // tidak perlu compact apapun
     }
 
     public function store(Request $request)

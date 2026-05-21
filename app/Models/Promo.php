@@ -31,7 +31,7 @@ class Promo extends Model
     public function scopeActive($query)
     {
         return $query->where('is_active', true)
-                    ->where('tanggal_mulai', '<=', Carbon::now())
-                    ->where('tanggal_selesai', '>=', Carbon::now());
+                    ->where('tanggal_mulai', '<=', now())
+                    ->where('tanggal_selesai', '>=', now());
     }
 }
